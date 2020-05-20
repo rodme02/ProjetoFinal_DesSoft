@@ -29,13 +29,9 @@ STILL = 0
 JUMPING = 1
 FALLING = 2
 
+
 # Define algumas variáveis com as cores básicas
-WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
 
 # Define a velocidade inicial do mundo
 world_speed = -10
@@ -94,14 +90,14 @@ class Player(pygame.sprite.Sprite):
         # Aumenta o tamanho da imagem
         player_img = pygame.transform.scale(player_img, (150, 150))
 
-        # Define a imagem do sprite. Nesse exemplo vamos usar uma imagem estática (não teremos animação durante o pulo)
+        # Define a imagem do sprite.
         self.image = player_img
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
 
         # Começa no topo da janela e cai até o chão
-        self.rect.centerx = WIDTH / 2
-        self.rect.top = 0
+        self.rect.centerx = WIDTH/3
+        self.rect.top = GROUND
 
         self.speedy = 0
 
@@ -141,14 +137,15 @@ def game_screen(screen):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
+
     # Carrega imagem
     player_img = pygame.image.load(path.join(img_dir, 'johnny.png')).convert_alpha()
 
     # Cria Sprite do jogador
     player = Player(player_img)
     # Cria um grupo de todos os sprites e adiciona o jogador.
-    all_sprites = pygame.sprite.Group()
-    all_sprites.add(player)
+    sprites = pygame.sprite.Group()
+    sprites.add(player)
 
     # Carrega assets
     assets = load_assets(img_dir)
@@ -162,23 +159,25 @@ def game_screen(screen):
     # Cria Sprite do jogador
     player = Player(assets[PLAYER_IMG])
     # Cria um grupo de todos os sprites e adiciona o jogador.
-    all_sprites = pygame.sprite.Group()
-    all_sprites.add(player)
+    sprites = pygame.sprite.Group()
+    sprites.add(player)
 
     # Cria um grupo para guardar somente os sprites do mundo (obstáculos, objetos, etc).
     # Esses sprites vão andar junto com o mundo (fundo)
     world_sprites = pygame.sprite.Group()
     # Cria blocos espalhados em posições aleatórias do mapa
     for i in range(INITIAL_BLOCKS):
-        block_x = random.randint(int(WIDTH * 2), int(WIDTH*5))
+        block_x = random.randint(int(WIDTH), int(WIDTH*2))
         block_y = (GROUND-80)
         block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
         world_sprites.add(block)
         # Adiciona também no grupo de todos os sprites para serem atualizados e desenhados
-        all_sprites.add(block)
+        sprites.add(block)
 
     PLAYING = 0
     DONE = 1
+
+    score = 0
 
     state = PLAYING
     while state != DONE:
@@ -194,12 +193,13 @@ def game_screen(screen):
                 # Dependendo da tecla, altera o estado do jogador.
                 if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
                     player.jump()
-
+            
             # Verifica se foi fechado.
             if event.type == pygame.QUIT:
                 state = DONE
 
-        all_sprites.update()
+
+        sprites.update()
 
         # Verifica se algum bloco saiu da janela
         for block in world_sprites:
@@ -209,15 +209,16 @@ def game_screen(screen):
                 block_x = random.randint(int(WIDTH * 3), int(WIDTH * 4))
                 block_y = (GROUND-80)
                 new_block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
-                all_sprites.add(new_block)
+                sprites.add(new_block)
                 world_sprites.add(new_block)
 
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
-        all_sprites.draw(screen)
+        sprites.draw(screen)
 
         # Atualiza a posição da imagem de fundo.
         background_rect.x += world_speed
+
         # Se o fundo saiu da janela, faz ele voltar para dentro.
         if background_rect.right < 0:
             background_rect.x += background_rect.width
@@ -231,7 +232,7 @@ def game_screen(screen):
         screen.blit(background, background_rect2)
 
 
-        all_sprites.draw(screen)
+        sprites.draw(screen)
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
@@ -244,7 +245,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Nome do jogo
 pygame.display.set_caption(TITULO)
 
-# Imprime instruções
+# Imprime titulo
 print('*' * len(TITULO))
 print(TITULO.upper())
 print('*' * len(TITULO))
