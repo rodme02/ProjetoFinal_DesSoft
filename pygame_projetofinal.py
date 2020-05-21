@@ -22,10 +22,10 @@ BLOCK_IMG = 'block_img'
 BACKGROUND_IMG = 'background_img'
 
 GRAVITY = 2
-JUMP_SIZE = 28
+JUMPING_SIZE = 28
 GROUND = HEIGHT - 90
 
-STILL = 0
+RUN = 0
 JUMPING = 1
 FALLING = 2
 
@@ -38,9 +38,9 @@ world_speed = -10
 
 # Outras constantes
 INITIAL_BLOCKS = 6
-TILE_SIZE = 80
+OBSTACLE_SIZE = 80
 
-# Inicialização do Pygame.
+# Inicialização do Pygame
 pygame.init()
 pygame.mixer.init()
 
@@ -57,7 +57,7 @@ class Tile(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Aumenta o tamanho do tile.
-        tile_img = pygame.transform.scale(tile_img, (TILE_SIZE, TILE_SIZE))
+        tile_img = pygame.transform.scale(tile_img, (OBSTACLE_SIZE, OBSTACLE_SIZE))
 
         # Define a imagem do tile.
         self.image = tile_img
@@ -85,7 +85,7 @@ class Player(pygame.sprite.Sprite):
 
         # Define estado atual
         # Usamos o estado para decidir se o jogador pode ou não pular
-        self.state = STILL
+        self.state = RUN
 
         # Aumenta o tamanho da imagem
         player_img = pygame.transform.scale(player_img, (150, 150))
@@ -96,7 +96,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         # Começa no topo da janela e cai até o chão
-        self.rect.centerx = WIDTH/3
+        self.rect.centerx = int(WIDTH/3)
         self.rect.top = GROUND
 
         self.speedy = 0
@@ -115,16 +115,15 @@ class Player(pygame.sprite.Sprite):
             # Para de cair
             self.speedy = 0
             # Atualiza o estado para parado
-            self.state = STILL
+            self.state = RUN
 
-    # Método que faz o personagem pular
-    def jump(self):
-        # Só pode pular se ainda não estiver pulando ou caindo
-        if self.state == STILL:
-            self.speedy -= JUMP_SIZE
+    # Faz o personagem pular
+    def JUMPING(self):
+        if self.state == RUN:
+            self.speedy -= JUMPING_SIZE
             self.state = JUMPING
 
-# Carrega todos os assets de uma vez.
+# Carrega os assets
 def load_assets(img_dir):
     assets = {}
     assets[PLAYER_IMG] = pygame.image.load(path.join(img_dir, 'johnny.png')).convert_alpha()
@@ -132,11 +131,9 @@ def load_assets(img_dir):
     assets[BACKGROUND_IMG] = pygame.image.load(path.join(img_dir, 'background.png')).convert()
     return assets
 
-
 def game_screen(screen):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
-
 
     # Carrega imagem
     player_img = pygame.image.load(path.join(img_dir, 'johnny.png')).convert_alpha()
@@ -192,12 +189,11 @@ def game_screen(screen):
             if event.type == pygame.KEYDOWN:
                 # Dependendo da tecla, altera o estado do jogador.
                 if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
-                    player.jump()
+                    player.JUMPING()
             
             # Verifica se foi fechado.
             if event.type == pygame.QUIT:
                 state = DONE
-
 
         sprites.update()
 
