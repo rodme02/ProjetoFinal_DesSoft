@@ -44,9 +44,11 @@ OBSTACLE_SIZE = 80
 pygame.init()
 pygame.mixer.init()
 
+'''
 # Música do jogo
 pygame.mixer.music.load(path.join('audio', 'song.wav'))
 pygame.mixer.music.play(-1)
+'''
 
 # Class que representa os blocos do cenário
 class Tile(pygame.sprite.Sprite):
@@ -95,7 +97,7 @@ class Player(pygame.sprite.Sprite):
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
 
-        # Começa no topo da janela e cai até o chão
+        # Posição inicical
         self.rect.centerx = int(WIDTH/3)
         self.rect.top = GROUND
 
@@ -195,7 +197,17 @@ def game_screen(screen):
             if event.type == pygame.QUIT:
                 state = DONE
 
-        sprites.update()
+                '''
+        for player in Tile:
+            if player.rect.collidepoint(Tile.rect.x, Tile.rect.y):
+                [print('morreu')]
+                '''
+
+        hits = pygame.sprite.spritecollide(player, world_sprites, True, pygame.sprite.collide_mask)
+
+        if len(hits) > 0:
+            print('morreu')
+            state = DONE 
 
         # Verifica se algum bloco saiu da janela
         for block in world_sprites:
@@ -207,6 +219,7 @@ def game_screen(screen):
                 new_block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
                 sprites.add(new_block)
                 world_sprites.add(new_block)
+        sprites.update()
 
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
