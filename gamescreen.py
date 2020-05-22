@@ -2,10 +2,13 @@ import pygame
 from os import path
 import random
 from sprites import Tile, Player
-from config import PLAYER_IMG, INITIAL_BLOCKS, WIDTH, HEIGHT, world_speed, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK
+from config import PLAYER_IMG, INITIAL_BLOCKS, WIDTH, HEIGHT, world_speed, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK, INIT, PLAYING, DONE
 from assets import load_assets
 
 def game_screen(screen):
+    pygame.mixer.music.load(path.join('audio', 'song.wav'))
+    pygame.mixer.music.play(-1)
+
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
@@ -38,15 +41,13 @@ def game_screen(screen):
     world_sprites = pygame.sprite.Group()
     # Cria blocos espalhados em posições aleatórias do mapa
     for blocks in range(INITIAL_BLOCKS):
-        block_x = random.randint(int(WIDTH), int(WIDTH*2))
+        block_x = random.randint(int(WIDTH), int(WIDTH*3))
         block_y = (GROUND-80)
         block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
         world_sprites.add(block)
         # Adiciona também no grupo de todos os sprites para serem atualizados e desenhados
         sprites.add(block)
 
-    PLAYING = 0
-    DONE = 1
 
     state = PLAYING
     while state != DONE:
@@ -70,15 +71,14 @@ def game_screen(screen):
         hits = pygame.sprite.spritecollide(player, world_sprites, True, pygame.sprite.collide_mask)
 
         if len(hits) > 0:
-            print('morreu')
-            state = DONE 
+            state = DONE
 
         # Verifica se algum bloco saiu da janela
         for block in world_sprites:
             if block.rect.right < 0:
                 # Destrói o bloco e cria um novo no final da tela
                 block.kill()
-                block_x = random.randint(int(WIDTH*5), int(WIDTH*7))
+                block_x = random.randint(int(WIDTH), int(WIDTH*3))
                 block_y = (GROUND-80)
                 new_block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
                 sprites.add(new_block)

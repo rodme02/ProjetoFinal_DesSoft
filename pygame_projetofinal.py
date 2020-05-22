@@ -3,20 +3,16 @@ Programa do jogo Johnny Run
 Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 """
 
-# Importando as bibliotecas necessárias.
-import pygame
+# Importando as bibliotecas necessárias
 from os import path
-from config import TITULO, WIDTH, HEIGHT
+import pygame
+from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING
 from gamescreen import game_screen
+from initscreen import init_screen
 
 # Inicialização do Pygame
 pygame.init()
 pygame.mixer.init()
-
-# Música do jogo
-pygame.mixer.music.load(path.join('audio', 'song.wav'))
-pygame.mixer.music.play(-1)
-
 
 # Tamanho da tela.
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -30,7 +26,14 @@ print(TITULO.upper())
 print('*' * len(TITULO))
 
 # Comando para evitar travamentos.
-try:
-    game_screen(screen)
-finally:
-    pygame.quit()
+state = INIT
+while state != DONE:
+    if state == INIT:
+        state = init_screen(screen)
+    elif state == PLAYING:
+        state = game_screen(screen)
+    else:
+        state = INIT
+        pygame.mixer.music.stop()
+
+pygame.quit()

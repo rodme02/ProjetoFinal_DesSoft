@@ -13,8 +13,15 @@ PLAYER_IMG = 'player_img'
 BLOCK_IMG = 'block_img'
 BACKGROUND_IMG = 'background_img'
 
+LOGO_IMG = 'logo_img'
+LOGO_SIZE = 100
+
+PLAYING = 0
+DONE = 1
+INIT = 2
+
 GRAVITY = 2
-JUMPING_SIZE = 28
+JUMPING_SIZE = 37
 GROUND = HEIGHT - 90
 
 RUN = 0
@@ -28,5 +35,5 @@ BLACK = (0, 0, 0)
 world_speed = -10
 
 # Outras constantes
-INITIAL_BLOCKS = 6
+INITIAL_BLOCKS = 3
 OBSTACLE_SIZE = 80
