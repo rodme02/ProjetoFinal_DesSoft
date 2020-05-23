@@ -1,5 +1,6 @@
 from os import path
 
+
 # Estabelece a pasta que contem as figuras e sons.
 img_dir = path.join(path.dirname(__file__), 'img')
 audio_dir = path.join(path.dirname(__file__), 'audio')
@@ -19,9 +20,10 @@ LOGO_SIZE = 100
 PLAYING = 0
 DONE = 1
 INIT = 2
+PLAYAGAIN = 3
 
 GRAVITY = 2
-JUMPING_SIZE = 37
+JUMPING_SIZE = 33
 GROUND = HEIGHT - 90
 
 RUN = 0
@@ -31,9 +33,6 @@ FALLING = 2
 # Define algumas variáveis com as cores básicas
 BLACK = (0, 0, 0)
 
-# Define a velocidade inicial do mundo
-world_speed = -10
-
 # Outras constantes
-INITIAL_BLOCKS = 3
+INITIAL_BLOCKS = 2
 OBSTACLE_SIZE = 80

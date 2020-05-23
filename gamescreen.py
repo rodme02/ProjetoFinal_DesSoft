@@ -2,12 +2,18 @@ import pygame
 from os import path
 import random
 from sprites import Tile, Player
-from config import PLAYER_IMG, INITIAL_BLOCKS, WIDTH, HEIGHT, world_speed, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK, INIT, PLAYING, DONE
+from config import PLAYER_IMG, INITIAL_BLOCKS, WIDTH, HEIGHT, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK, INIT, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
 
 def game_screen(screen):
-    pygame.mixer.music.load(path.join('audio', 'song.wav'))
-    pygame.mixer.music.play(-1)
+
+    world_speed = -10
+
+    # Música do jogo
+    pygame.mixer.music.set_endevent(pygame.USEREVENT)
+    pygame.mixer.music.load(path.join('audio', 'fill.wav'))
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play()
 
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
@@ -35,7 +41,7 @@ def game_screen(screen):
     # Cria um grupo de todos os sprites e adiciona o jogador.
     sprites = pygame.sprite.Group()
     sprites.add(player)
-
+    
     # Cria um grupo para guardar somente os sprites do mundo (obstáculos, objetos, etc).
     # Esses sprites vão andar junto com o mundo (fundo)
     world_sprites = pygame.sprite.Group()
@@ -48,15 +54,19 @@ def game_screen(screen):
         # Adiciona também no grupo de todos os sprites para serem atualizados e desenhados
         sprites.add(block)
 
-
     state = PLAYING
     while state != DONE:
 
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
 
-        # Processa os eventos (mouse, teclado, botão, etc).
+        # Processa os eventos (teclado, mouse e tempo)
         for event in pygame.event.get():
+                
+            if event.type == pygame.USEREVENT:
+                pygame.mixer.music.load(path.join('audio', 'song.wav'))
+                pygame.mixer.music.set_volume(0.8)
+                pygame.mixer.music.play(-1)
 
             # Verifica se soltou alguma tecla.
             if event.type == pygame.KEYDOWN:
@@ -71,20 +81,22 @@ def game_screen(screen):
         hits = pygame.sprite.spritecollide(player, world_sprites, True, pygame.sprite.collide_mask)
 
         if len(hits) > 0:
+            crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
+            crash.play()
             state = DONE
-
+    
         # Verifica se algum bloco saiu da janela
         for block in world_sprites:
             if block.rect.right < 0:
                 # Destrói o bloco e cria um novo no final da tela
                 block.kill()
-                block_x = random.randint(int(WIDTH), int(WIDTH*3))
+                block_x = random.randint(int(WIDTH), int(WIDTH*4))
                 block_y = (GROUND-80)
                 new_block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
                 sprites.add(new_block)
                 world_sprites.add(new_block)
         sprites.update()
-
+    
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
         sprites.draw(screen)

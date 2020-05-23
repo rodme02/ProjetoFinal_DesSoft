@@ -6,9 +6,10 @@ Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 # Importando as bibliotecas necessárias
 from os import path
 import pygame
-from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING
+from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING, PLAYAGAIN
 from gamescreen import game_screen
 from initscreen import init_screen
+from play_again import play_again
 
 # Inicialização do Pygame
 pygame.init()
@@ -20,12 +21,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Nome do jogo
 pygame.display.set_caption(TITULO)
 
-# Imprime titulo
-print('*' * len(TITULO))
-print(TITULO.upper())
-print('*' * len(TITULO))
-
-# Comando para evitar travamentos.
+# loop do jogo
 state = INIT
 while state != DONE:
     if state == INIT:
@@ -34,6 +30,5 @@ while state != DONE:
         state = game_screen(screen)
     else:
         state = INIT
-        pygame.mixer.music.stop()
 
 pygame.quit()
