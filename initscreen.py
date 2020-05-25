@@ -1,8 +1,6 @@
 import pygame
 from os import path
-
 from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT
-
 
 def init_screen(screen):
 
@@ -41,6 +39,12 @@ def init_screen(screen):
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
         screen.blit(background, background_rect)
+
+        '''
+        font = pygame.font.Font(pygame.font.get_default_font(), 40)
+        highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
+        screen.blit(highscore_texto, (100, 50))
+        '''
 
         # Depois de desenhar tudo
         pygame.display.flip()

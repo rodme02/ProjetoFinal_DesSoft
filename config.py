@@ -36,3 +36,4 @@ BLACK = (0, 0, 0)
 # Outras constantes
 INITIAL_BLOCKS = 2
 OBSTACLE_SIZE = 80
+

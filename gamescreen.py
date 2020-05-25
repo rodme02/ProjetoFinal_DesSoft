@@ -2,11 +2,10 @@ import pygame
 from os import path
 import random
 from sprites import Tile, Player
-from config import PLAYER_IMG, INITIAL_BLOCKS, WIDTH, HEIGHT, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK, PLAYING, DONE, PLAYAGAIN
+from config import PLAYER_IMG, WIDTH, HEIGHT, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
 
 def game_screen(screen):
-
     world_speed = -10
 
     # Música do jogo
@@ -47,10 +46,14 @@ def game_screen(screen):
     # Esses sprites vão andar junto com o mundo (fundo)
     world_sprites = pygame.sprite.Group()
 
-    pygame.time.set_timer(pygame.USEREVENT+1, 1) # Timer de 1 milisegundo para aumentar a velocidade do jogo
+    font = pygame.font.Font(pygame.font.get_default_font(), 40)
+
+    pygame.time.set_timer(pygame.USEREVENT+1, 100) # Timer de 1 milisegundo para aumentar a velocidade do jogo
 
     pygame.time.set_timer(pygame.USEREVENT+2, 1500) # Timer de 1 segundo para criar novos blocos
 
+    score = 0
+    highscore = 0
     state = PLAYING
     while state == PLAYING:
 
@@ -62,7 +65,8 @@ def game_screen(screen):
 
             if event.type == pygame.USEREVENT+1:
                 # Aumenta a velocidade do jogo
-                world_speed -= 1e-4
+                world_speed -= 1e-2
+                score += 1
 
             if event.type == pygame.USEREVENT+2:
                 # Cria novos blocos
@@ -93,6 +97,8 @@ def game_screen(screen):
         if len(hits) > 0:
             crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
             crash.play()
+            if score > highscore:
+                highscore = score
             state = PLAYAGAIN
     
         # Verifica se algum bloco saiu da janela
@@ -125,6 +131,15 @@ def game_screen(screen):
         background_rect2 = background_rect.copy()
         background_rect2.x += background_rect2.width
         screen.blit(background, background_rect2)
+
+        score_texto = font.render('score: {0}'.format(score), True, (BLACK))
+        screen.blit(score_texto, (10, 10))
+        
+
+        highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
+        screen.blit(highscore_texto, (10, 50))
+        
+
 
 
         sprites.draw(screen)
