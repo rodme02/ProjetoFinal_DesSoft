@@ -1,15 +1,14 @@
 """
-Programa do jogo Johnny Run
+Programa do jogo Johnny's Run
 Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 """
 
 # Importando as bibliotecas necessárias
-from os import path
 import pygame
 from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING, PLAYAGAIN
 from gamescreen import game_screen
 from initscreen import init_screen
-from play_again import play_again
+from playagain import play_again
 
 # Inicialização do Pygame
 pygame.init()
@@ -28,7 +27,9 @@ while state != DONE:
         state = init_screen(screen)
     elif state == PLAYING:
         state = game_screen(screen)
+    elif state == PLAYAGAIN:
+        state = play_again(screen)
     else:
-        state = INIT
+        state = DONE
 
 pygame.quit()

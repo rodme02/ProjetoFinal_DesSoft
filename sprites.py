@@ -1,12 +1,11 @@
+from os import path
 import pygame
 from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, RUN, JUMPING, FALLING, OBSTACLE_SIZE
 
 # Class que representa os blocos do cenário
 class Tile(pygame.sprite.Sprite):
-
-    # Construtor da classe.
+    # Construtor da classe pai (Sprite).
     def __init__(self, tile_img, x, y, speedx):
-        # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
 
         # Aumenta o tamanho do tile.
@@ -23,9 +22,13 @@ class Tile(pygame.sprite.Sprite):
 
         self.speedx = speedx
 
-    def update(self):
-        self.rect.x += self.speedx
+        self.movement = [speedx,0]
 
+    def update(self):
+        self.rect = self.rect.move(self.movement)
+
+        if self.rect.right < 0:
+            self.kill()
 
 # Classe Jogador que representa o herói
 class Player(pygame.sprite.Sprite):
