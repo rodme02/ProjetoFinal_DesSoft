@@ -2,18 +2,19 @@ import pygame
 from os import path
 import random
 from sprites import Tile, Player
-from config import PLAYER_IMG, WIDTH, HEIGHT, GROUND, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, GROUND, BLACK, PLAYING, DONE, PLAYAGAIN
+from config import PLAYER_IMG, WIDTH, HEIGHT, GROUND, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, BLACK, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
+from initscreen import init_screen
+
+highscore = 0
 
 def game_screen(screen):
 
-    '''
     # Música do jogo
     pygame.mixer.music.set_endevent(pygame.USEREVENT)
     pygame.mixer.music.load(path.join('audio', 'fill.wav'))
     pygame.mixer.music.set_volume(0.4)
     pygame.mixer.music.play()
-    '''
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -45,7 +46,6 @@ def game_screen(screen):
     # Define a velocidade e o score inicial
     world_speed = -11
     score = 0
-    highscore = 0
 
     # Game Loop
     state = PLAYING
@@ -85,14 +85,17 @@ def game_screen(screen):
             if event.type == pygame.QUIT:
                 state = DONE
 
+        
         hits = pygame.sprite.spritecollide(player, world_sprites, True, pygame.sprite.collide_mask)
 
         if len(hits) > 0:
-            #crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
-            #crash.play()
+            crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
+            crash.play()
+            global highscore
             if score > highscore:
                 highscore = score
             state = PLAYAGAIN
+            
     
         '''
         for sprite in sprites:
@@ -122,12 +125,12 @@ def game_screen(screen):
         
         # Mostra o score da partida atual
         score_texto = font.render('score: {0}'.format(score), True, (BLACK))
-        screen.blit(score_texto, (30, 70))
+        screen.blit(score_texto, (30, 60))
         
         
         # Mostra o highscore
         highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
-        screen.blit(highscore_texto, (10, 10))
+        screen.blit(highscore_texto, (30, 25))
         
         
         # Desenha os sprites

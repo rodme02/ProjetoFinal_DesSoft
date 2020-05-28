@@ -20,7 +20,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITULO)
 
 # Loop do jogo
-state = INIT
+state, highscore = INIT, 0
 while state != DONE:
     if state == INIT:
         state = init_screen(screen)
