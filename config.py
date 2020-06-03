@@ -3,6 +3,7 @@ from os import path
 # Estabelece a pasta que contém as figuras e sons
 img_dir = path.join(path.dirname(__file__), 'img')
 audio_dir = path.join(path.dirname(__file__), 'audio')
+font_dir = path.join(path.dirname(__file__), 'font')
 
 # Dados gerais do jogo
 TITULO = "Johnny's Run"

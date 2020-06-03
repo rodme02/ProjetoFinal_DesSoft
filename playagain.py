@@ -1,14 +1,16 @@
 import pygame
 from os import path
-from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN
-from gamescreen import *
+from config import img_dir, font_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN
+import gamescreen
 
 def play_again(screen):
     
+    '''
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
+    '''
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -17,21 +19,24 @@ def play_again(screen):
     background = pygame.image.load(path.join(img_dir, 'background.png')).convert()
     background_rect = background.get_rect()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
-    logo = pygame.image.load(path.join(img_dir, 'logo.png')).convert_alpha()
-    background.blit(logo, (WIDTH/3.5, -30))
+    font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 70)
+    gameover_texto = font.render('Game Over!', True, (BLACK))
+    background.blit(gameover_texto, (407, 140))
+    playagain_texto = font.render('Play Again?', True, (BLACK))
+    background.blit(playagain_texto, (407, 300))
 
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (375, 450))
+    background.blit(playbutton, (422, 470))
     playbutton = playbutton.get_rect()
-    playbutton.x = 375
-    playbutton.y = 450
+    playbutton.x = 422
+    playbutton.y = 470
     
     # Mostra o highscore
-    font = pygame.font.Font(pygame.font.get_default_font(), 50)
+    font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)
+    highscore = gamescreen.highscore
     
     highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
     background.blit(highscore_texto, (30, 25))
-    
     
     state = PLAYAGAIN
     while state == PLAYAGAIN:

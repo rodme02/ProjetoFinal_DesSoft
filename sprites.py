@@ -1,5 +1,6 @@
 import pygame
 from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, RUN, JUMPING, FALLING, OBSTACLE_SIZE
+import gamescreen
 
 # Class que representa os obstáculos do cenário
 class Tile(pygame.sprite.Sprite):
@@ -9,7 +10,7 @@ class Tile(pygame.sprite.Sprite):
 
         # Aumenta o tamanho do obstáculo
         tile_img = pygame.transform.scale(tile_img, (OBSTACLE_SIZE, OBSTACLE_SIZE))
-
+        
         # Define a imagem do obstáculo
         self.image = tile_img
         # Detalhes sobre o posicionamento
@@ -19,12 +20,15 @@ class Tile(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+        # Dedine a velocidade do obstáculo
         self.speedx = speedx
-
-        self.movement = [speedx,0]
+        self.movement = [speedx, 0]
 
     # Atualiza a posição dos obstáculos
     def update(self):
+        world_speed = gamescreen.world_speed
+        self.speedx = world_speed
+        self.movement = [self.speedx, 0]
         self.rect = self.rect.move(self.movement)
 
         if self.rect.right < 0:

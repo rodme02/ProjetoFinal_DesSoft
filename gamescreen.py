@@ -2,19 +2,22 @@ import pygame
 from os import path
 import random
 from sprites import Tile, Player
-from config import PLAYER_IMG, WIDTH, HEIGHT, GROUND, FPS, img_dir, BLOCK_IMG, BACKGROUND_IMG, BLACK, PLAYING, DONE, PLAYAGAIN
+from config import PLAYER_IMG, WIDTH, HEIGHT, GROUND, FPS, img_dir, font_dir, BLOCK_IMG, BACKGROUND_IMG, BLACK, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
 from initscreen import init_screen
 
 highscore = 0
+world_speed = -11
 
 def game_screen(screen):
-
+    
+    '''
     # Música do jogo
     pygame.mixer.music.set_endevent(pygame.USEREVENT)
     pygame.mixer.music.load(path.join('audio', 'fill.wav'))
-    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.set_volume(1)
     pygame.mixer.music.play()
+    '''
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -37,15 +40,20 @@ def game_screen(screen):
     # Cria um grupo para guardar somente os sprites do mundo
     world_sprites = pygame.sprite.Group()
 
-    font = pygame.font.Font(pygame.font.get_default_font(), 30)
+    font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)
 
     pygame.time.set_timer(pygame.USEREVENT+1, 100) # Timer de 100 milisegundos para aumentar a velocidade do jogo
 
     pygame.time.set_timer(pygame.USEREVENT+2, random.randint(1000, 2000)) # Timer aleatório de 1 a 2 segundos para criar novos blocos
 
-    # Define a velocidade e o score inicial
-    world_speed = -11
+    # Define o score inicial
     score = 0
+
+    # Define a variável world_speed como global
+    global world_speed
+
+    # Define a variável highscore como global
+    global highscore
 
     # Game Loop
     state = PLAYING
@@ -54,6 +62,8 @@ def game_screen(screen):
         # Ajusta o FPS
         clock.tick(FPS)
 
+        i = random.randint(0, 1)
+        list_blocks = [BLOCK_IMG, BLOCK_IMG]
         # Processa os eventos
         for event in pygame.event.get():
 
@@ -66,13 +76,13 @@ def game_screen(screen):
             if event.type == pygame.USEREVENT+2:
                 block_x = random.randint(int(WIDTH), int(WIDTH*1.5))
                 block_y = (GROUND-80)
-                block = Tile(assets[BLOCK_IMG], block_x, block_y, world_speed)
+                block = Tile(assets[list_blocks[i]], block_x, block_y, world_speed)
                 world_sprites.add(block)
                 sprites.add(block)
                 
             if event.type == pygame.USEREVENT:
                 pygame.mixer.music.load(path.join('audio', 'song.wav'))
-                pygame.mixer.music.set_volume(0.8)
+                pygame.mixer.music.set_volume(1)
                 pygame.mixer.music.play(-1)
 
             # Verifica se soltou alguma tecla
@@ -89,18 +99,12 @@ def game_screen(screen):
         hits = pygame.sprite.spritecollide(player, world_sprites, True, pygame.sprite.collide_mask)
 
         if len(hits) > 0:
-            crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
-            crash.play()
-            global highscore
+            #crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
+            #crash.set_volume(0.6)
+            #crash.play()
             if score > highscore:
                 highscore = score
             state = PLAYAGAIN
-            
-    
-        '''
-        for sprite in sprites:
-            sprite.update_speed(world_speed)
-        '''
 
         sprites.update()
         
@@ -122,16 +126,13 @@ def game_screen(screen):
         background_rect2.x += background_rect2.width
         screen.blit(background, background_rect2)
 
-        
         # Mostra o score da partida atual
         score_texto = font.render('score: {0}'.format(score), True, (BLACK))
-        screen.blit(score_texto, (30, 60))
-        
+        screen.blit(score_texto, (30, 70))
         
         # Mostra o highscore
         highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
         screen.blit(highscore_texto, (30, 25))
-        
         
         # Desenha os sprites
         sprites.draw(screen)
@@ -139,4 +140,4 @@ def game_screen(screen):
         # Depois de desenhar tudo inverte o display
         pygame.display.flip()
 
-    return state, highscore
+    return state, highscore, world_speed

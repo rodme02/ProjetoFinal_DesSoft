@@ -1,5 +1,6 @@
 """
 Programa do jogo Johnny's Run
+
 Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 """
 # Importando as bibliotecas
@@ -20,12 +21,12 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITULO)
 
 # Loop do jogo
-state, highscore = INIT, 0
+state, highscore, world_speed = INIT, 0, -11
 while state != DONE:
     if state == INIT:
         state = init_screen(screen)
     elif state == PLAYING:
-        state, highscore = game_screen(screen)
+        state, highscore, world_speed = game_screen(screen)
     elif state == PLAYAGAIN:
         state = play_again(screen)
     else:
