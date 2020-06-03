@@ -25,7 +25,7 @@ PLAYAGAIN = 3
 # Variáveis para a posição do jogador
 GRAVITY = 2
 JUMPING_SIZE = 30
-GROUND = HEIGHT - 90
+GROUND = HEIGHT - 120
 
 # Estados do jogador
 RUN = 0

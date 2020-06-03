@@ -11,13 +11,11 @@ world_speed = -11
 
 def game_screen(screen):
     
-    '''
     # Música do jogo
     pygame.mixer.music.set_endevent(pygame.USEREVENT)
     pygame.mixer.music.load(path.join('audio', 'fill.wav'))
     pygame.mixer.music.set_volume(1)
     pygame.mixer.music.play()
-    '''
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -42,15 +40,16 @@ def game_screen(screen):
 
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)
 
-    pygame.time.set_timer(pygame.USEREVENT+1, 100) # Timer de 100 milisegundos para aumentar a velocidade do jogo
+    pygame.time.set_timer(pygame.USEREVENT+1, 10) # Timer de 100 milisegundos para aumentar a velocidade do jogo
 
     pygame.time.set_timer(pygame.USEREVENT+2, random.randint(1000, 2000)) # Timer aleatório de 1 a 2 segundos para criar novos blocos
 
     # Define o score inicial
     score = 0
 
-    # Define a variável world_speed como global
+    # Define a variável world_speed inicial e a define como como global
     global world_speed
+    world_speed = -11
 
     # Define a variável highscore como global
     global highscore
@@ -69,8 +68,8 @@ def game_screen(screen):
 
             if event.type == pygame.USEREVENT+1:
                 # Aumenta a velocidade do jogo
-                world_speed -= 1e-2
-                score += 1
+                world_speed -= 1e-3
+                score += 1e-1
 
             # Cria novos blocos em função do timer
             if event.type == pygame.USEREVENT+2:
@@ -99,12 +98,12 @@ def game_screen(screen):
         hits = pygame.sprite.spritecollide(player, world_sprites, True, pygame.sprite.collide_mask)
 
         if len(hits) > 0:
-            #crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
-            #crash.set_volume(0.6)
-            #crash.play()
+            state = PLAYAGAIN
+            crash = pygame.mixer.Sound(path.join('audio', 'crash.wav'))
+            crash.set_volume(0.6)
+            crash.play()
             if score > highscore:
                 highscore = score
-            state = PLAYAGAIN
 
         sprites.update()
         
@@ -127,11 +126,11 @@ def game_screen(screen):
         screen.blit(background, background_rect2)
 
         # Mostra o score da partida atual
-        score_texto = font.render('score: {0}'.format(score), True, (BLACK))
+        score_texto = font.render('score: {0}'.format(int(score)), True, (BLACK))
         screen.blit(score_texto, (30, 70))
         
         # Mostra o highscore
-        highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
+        highscore_texto = font.render('highscore: {0}'.format(int(highscore)), True, (BLACK))
         screen.blit(highscore_texto, (30, 25))
         
         # Desenha os sprites

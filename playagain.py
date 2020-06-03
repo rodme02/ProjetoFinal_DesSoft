@@ -5,12 +5,10 @@ import gamescreen
 
 def play_again(screen):
     
-    '''
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
-    '''
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -35,7 +33,7 @@ def play_again(screen):
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)
     highscore = gamescreen.highscore
     
-    highscore_texto = font.render('highscore: {0}'.format(highscore), True, (BLACK))
+    highscore_texto = font.render('highscore: {0}'.format(int(highscore)), True, (BLACK))
     background.blit(highscore_texto, (30, 25))
     
     state = PLAYAGAIN
