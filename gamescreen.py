@@ -54,6 +54,9 @@ def game_screen(screen):
     # Define a variável highscore como global
     global highscore
 
+    # Cria lista dos blocos
+    i = random.randint(0, 1)
+    list_blocks = [BLOCK_IMG, BLOCK_IMG]
     # Game Loop
     state = PLAYING
     while state == PLAYING:
@@ -61,8 +64,6 @@ def game_screen(screen):
         # Ajusta o FPS
         clock.tick(FPS)
 
-        i = random.randint(0, 1)
-        list_blocks = [BLOCK_IMG, BLOCK_IMG]
         # Processa os eventos
         for event in pygame.event.get():
 
