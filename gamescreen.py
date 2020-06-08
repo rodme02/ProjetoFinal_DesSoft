@@ -137,7 +137,7 @@ def game_screen(screen):
         # Desenha os sprites
         sprites.draw(screen)
 
-        # Depois de desenhar tudo inverte o display
+        # Após desenhar inverte o display
         pygame.display.flip()
 
     return state, highscore, world_speed
