@@ -1,6 +1,6 @@
 import pygame
 from os import path
-from config import img_dir, font_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN
+from config import img_dir, font_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN, INSTRUCTION
 import gamescreen
 
 def play_again(screen):
@@ -20,14 +20,20 @@ def play_again(screen):
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 70)
     gameover_texto = font.render('Game Over!', True, (BLACK))
     background.blit(gameover_texto, (407, 140))
-    playagain_texto = font.render('Play Again?', True, (BLACK))
-    background.blit(playagain_texto, (407, 300))
+    playagain_texto = font.render('Quer tentar de novo?', True, (BLACK))
+    background.blit(playagain_texto, (250, 300))
 
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (422, 470))
+    background.blit(playbutton, (422, 430))
     playbutton = playbutton.get_rect()
     playbutton.x = 422
-    playbutton.y = 470
+    playbutton.y = 430
+
+    instru = pygame.image.load(path.join(img_dir, 'instructions.png')).convert_alpha()
+    background.blit(instru, (422, 600))
+    instru = instru.get_rect()
+    instru.x = 422
+    instru.y = 600
     
     # Mostra o highscore
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)
@@ -53,6 +59,11 @@ def play_again(screen):
                 mouse_x, mouse_y = event.pos
                 if playbutton.collidepoint(mouse_x, mouse_y):
                     state = PLAYING
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                mouse_x, mouse_y = event.pos
+                if instru.collidepoint(mouse_x, mouse_y):
+                    state = INSTRUCTION
 
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)

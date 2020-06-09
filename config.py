@@ -21,6 +21,7 @@ PLAYING = 0
 DONE = 1
 INIT = 2
 PLAYAGAIN = 3
+INSTRUCTION = 4
 
 # Variáveis para a posição do jogador
 GRAVITY = 2

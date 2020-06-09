@@ -5,10 +5,11 @@ Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 """
 # Importando as bibliotecas
 import pygame
-from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING, PLAYAGAIN
+from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING, PLAYAGAIN, INSTRUCTION
 from gamescreen import game_screen
 from initscreen import init_screen
 from playagain import play_again
+from instructionscreen import instruction_screen
 
 # Inicialização do pygame
 pygame.init()
@@ -29,6 +30,8 @@ while state != DONE:
         state, highscore, world_speed = game_screen(screen)
     elif state == PLAYAGAIN:
         state = play_again(screen)
+    elif state == INSTRUCTION:
+        state = instruction_screen(screen)
     else:
         state = DONE
 

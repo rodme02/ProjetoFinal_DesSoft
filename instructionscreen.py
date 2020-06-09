@@ -1,8 +1,11 @@
 import pygame
 from os import path
-from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, INSTRUCTION
+import random
+from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, PLAYER_IMG, GROUND, font_dir, BLOCK_IMG, BACKGROUND_IMG, INSTRUCTION
+from sprites import Tile, Player
+from assets import load_assets
 
-def init_screen(screen):
+def instruction_screen(screen):
 
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
@@ -12,27 +15,31 @@ def init_screen(screen):
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
 
-    # Carrega o fundo da tela inicial
+    # Carrega assets
+    assets = load_assets(img_dir)
+
     background = pygame.image.load(path.join(img_dir, 'background.png')).convert()
     background_rect = background.get_rect()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
-    logo = pygame.image.load(path.join(img_dir, 'logo.png')).convert_alpha()
-    background.blit(logo, (WIDTH/3.5, -30))
-    
+
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (422, 430))
+    background.blit(playbutton, (422, 150))
     playbutton = playbutton.get_rect()
     playbutton.x = 422
-    playbutton.y = 430
+    playbutton.y = 150
 
-    instru = pygame.image.load(path.join(img_dir, 'instructions.png')).convert_alpha()
-    background.blit(instru, (422, 600))
-    instru = instru.get_rect()
-    instru.x = 422
-    instru.y = 600
+    font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 70)
+    instru_texto = font.render('Aperte ESPAÇO para pular', True, (BLACK))
+    background.blit(instru_texto, (150, 50))
 
-    state = INIT
-    while state == INIT:
+    # Cria sprite do jogador
+    player = Player(assets[PLAYER_IMG])
+    # Cria um grupo de todos os sprites e adiciona o jogador
+    sprites = pygame.sprite.Group()
+    sprites.add(player)
+
+    state = INSTRUCTION
+    while state == INSTRUCTION:
 
         # Ajusta o FPS
         clock.tick(FPS)
@@ -49,14 +56,21 @@ def init_screen(screen):
                 if playbutton.collidepoint(mouse_x, mouse_y):
                     state = PLAYING
 
-            if event.type == pygame.MOUSEBUTTONUP:
-                mouse_x, mouse_y = event.pos
-                if instru.collidepoint(mouse_x, mouse_y):
-                    state = INSTRUCTION
+            # Verifica se soltou alguma tecla
+            if event.type == pygame.KEYDOWN:
+                # Faz o jogador pular
+                if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
+                    player.JUMPING()
 
-        # A cada loop, redesenha o fundo
+        sprites.update()
+
+        # A cada loop redesenha o fundo e os sprites
         screen.fill(BLACK)
         screen.blit(background, background_rect)
+        sprites.draw(screen)
+        
+        # Desenha os sprites
+        sprites.draw(screen)
 
         # Depois de desenhar tudo inverte o display
         pygame.display.flip()
