@@ -9,7 +9,7 @@ def init_screen(screen):
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
 
-    # Variável para o ajuste do FPS
+    # Variável para ajustar o FPS
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
@@ -39,7 +39,7 @@ def init_screen(screen):
 
         # Processa os eventos
         for event in pygame.event.get():
-            # Verifica se foi fechado
+            # Verifica se é para fechar
             if event.type == pygame.QUIT:
                 state = DONE
 
