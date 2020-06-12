@@ -15,3 +15,12 @@ Vídeo apresentando o jogo:
 Esse é um jogo básico de pular sob obstáculos, a velocidade do jogo aumenta com o tempo para ir ficando mais difícil.
 
 Para executar o jogo rode o arquivo pygame_projetofinal.py.
+
+
+Créditos:
+
+Obstáculos: Irina Mir (irmirx)
+
+Fundo: 
+
+Personagem: Balmer

@@ -4,11 +4,12 @@ from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, INST
 
 def init_screen(screen):
 
+    
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
-
+    
     # Variável para ajustar o FPS
     clock = pygame.time.Clock()
 

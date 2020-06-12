@@ -1,16 +1,18 @@
 import pygame
 from os import path
 import random
-from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, GROUND, font_dir, BLOCK_IMG, BACKGROUND_IMG, INSTRUCTION
-from sprites import Tile, Player
+from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, GROUND, font_dir, BLOCK_IMG, BACKGROUND_IMG, INSTRUCTION, STILL
+from sprites import Tile, PlayerInstru
 from assets import load_assets
 
 def instruction_screen(screen):
 
+    
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
+    
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -35,12 +37,11 @@ def instruction_screen(screen):
     # Carrega spritesheet
     player_sheet = pygame.image.load(path.join(img_dir, 'hero.png')).convert_alpha()
     # Cria sprite do jogador
-    player = Player(player_sheet)
+    player = PlayerInstru(player_sheet)
     # Cria um grupo de todos os sprites e adiciona o jogador
     all_sprites = pygame.sprite.Group()
     all_sprites.add(player)
 
-    player.STILL()
     state = INSTRUCTION
     while state == INSTRUCTION:
 

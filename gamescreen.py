@@ -11,11 +11,13 @@ world_speed = -11
 
 def game_screen(screen):
     
+    
     # Música do jogo
     pygame.mixer.music.set_endevent(pygame.USEREVENT)
     pygame.mixer.music.load(path.join('audio', 'fill.wav'))
     pygame.mixer.music.set_volume(1)
     pygame.mixer.music.play()
+    
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()

@@ -9,7 +9,7 @@ def play_again(screen):
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
-
+    
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
 
@@ -19,9 +19,9 @@ def play_again(screen):
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 70)
     gameover_texto = font.render('Game Over!', True, (BLACK))
-    background.blit(gameover_texto, (407, 140))
+    background.blit(gameover_texto, (407, 20))
     playagain_texto = font.render('Quer tentar de novo?', True, (BLACK))
-    background.blit(playagain_texto, (250, 300))
+    background.blit(playagain_texto, (250, 100))
 
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
     background.blit(playbutton, (422, 430))
