@@ -1,7 +1,7 @@
 import pygame
 from os import path
 import random
-from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, PLAYER_IMG, GROUND, font_dir, BLOCK_IMG, BACKGROUND_IMG, INSTRUCTION
+from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, GROUND, font_dir, BLOCK_IMG, BACKGROUND_IMG, INSTRUCTION
 from sprites import Tile, Player
 from assets import load_assets
 
@@ -32,12 +32,15 @@ def instruction_screen(screen):
     instru_texto = font.render('Aperte ESPAÇO para pular', True, (BLACK))
     background.blit(instru_texto, (150, 50))
 
+    # Carrega spritesheet
+    player_sheet = pygame.image.load(path.join(img_dir, 'hero.png')).convert_alpha()
     # Cria sprite do jogador
-    player = Player(assets[PLAYER_IMG])
+    player = Player(player_sheet)
     # Cria um grupo de todos os sprites e adiciona o jogador
-    sprites = pygame.sprite.Group()
-    sprites.add(player)
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(player)
 
+    player.STILL()
     state = INSTRUCTION
     while state == INSTRUCTION:
 
@@ -62,15 +65,15 @@ def instruction_screen(screen):
                 if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
                     player.JUMPING()
 
-        sprites.update()
+        all_sprites.update()
 
         # A cada loop redesenha o fundo e os sprites
         screen.fill(BLACK)
         screen.blit(background, background_rect)
-        sprites.draw(screen)
+        all_sprites.draw(screen)
         
         # Desenha os sprites
-        sprites.draw(screen)
+        all_sprites.draw(screen)
 
         # Depois de desenhar tudo inverte o display
         pygame.display.flip()

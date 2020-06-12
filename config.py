@@ -1,4 +1,5 @@
 from os import path
+import pygame
 
 # Estabelece a pasta que contém as figuras e sons
 img_dir = path.join(path.dirname(__file__), 'img')
@@ -10,7 +11,9 @@ TITULO = "Johnny's Run"
 WIDTH = 1180 # Largura da tela
 HEIGHT = 800 # Altura da tela
 FPS = 60 # Frames por segundo
-PLAYER_IMG = 'player_img'
+RUN_IMG = 'run_img'
+JUMP_IMG = 'jump_img'
+STILL_IMG = 'still_img'
 BLOCK_IMG = 'block_img'
 BACKGROUND_IMG = 'background_img'
 LOGO_IMG = 'logo_img'
@@ -29,9 +32,9 @@ JUMPING_SIZE = 30
 GROUND = HEIGHT - 120
 
 # Estados do jogador
-RUN = 0
-JUMPING = 1
-FALLING = 2
+STILL = 0
+WALKING = 1
+JUMPING = 2
 
 # Define a cor preto
 BLACK = (0, 0, 0)

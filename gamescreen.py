@@ -2,7 +2,7 @@ import pygame
 from os import path
 import random
 from sprites import Tile, Player
-from config import PLAYER_IMG, WIDTH, HEIGHT, GROUND, FPS, img_dir, font_dir, BLOCK_IMG, BACKGROUND_IMG, BLACK, PLAYING, DONE, PLAYAGAIN
+from config import WIDTH, HEIGHT, GROUND, FPS, img_dir, font_dir, BLOCK_IMG, BACKGROUND_IMG, BLACK, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
 from initscreen import init_screen
 
@@ -29,11 +29,13 @@ def game_screen(screen):
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
 
+    # Carrega spritesheet
+    player_sheet = pygame.image.load(path.join(img_dir, 'hero.png')).convert_alpha()
     # Cria sprite do jogador
-    player = Player(assets[PLAYER_IMG])
+    player = Player(player_sheet)
     # Cria um grupo de todos os sprites e adiciona o jogador
-    sprites = pygame.sprite.Group()
-    sprites.add(player)
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(player)
     
     # Cria um grupo para guardar somente os sprites do mundo
     world_sprites = pygame.sprite.Group()
@@ -78,7 +80,7 @@ def game_screen(screen):
                 block_y = (GROUND-80)
                 block = Tile(assets[list_blocks[i]], block_x, block_y, world_speed)
                 world_sprites.add(block)
-                sprites.add(block)
+                all_sprites.add(block)
                 
             if event.type == pygame.USEREVENT:
                 pygame.mixer.music.load(path.join('audio', 'song.wav'))
@@ -106,12 +108,12 @@ def game_screen(screen):
             if score > highscore:
                 highscore = score
 
-        sprites.update()
+        all_sprites.update()
         
     
         # A cada loop redesenha o fundo e os sprites
         screen.fill(BLACK)
-        sprites.draw(screen)
+        all_sprites.draw(screen)
 
         # Atualiza a posição do fundo
         background_rect.x += world_speed
@@ -135,7 +137,7 @@ def game_screen(screen):
         screen.blit(highscore_texto, (30, 25))
         
         # Desenha os sprites
-        sprites.draw(screen)
+        all_sprites.draw(screen)
 
         # Após desenhar inverte o display
         pygame.display.flip()
