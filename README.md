@@ -1,10 +1,10 @@
 # Projeto Final de Design de Software
 
-Nome do jogo:
+# NIGHT RUNNER
 
-Johnny's Run
+Jogo de pular obstáculos, cujo objetivo é conseguir um score alto. A velocidade do jogo aumenta com o tempo para o jogo ir dificultando.
 
-Autores:
+# Autores:
 
 Rodrigo Paoliello de Medeiros
 
@@ -12,19 +12,14 @@ Rodrigo Paoliello de Medeiros
 Pedro Santana Costa
 
 
-Esse é um jogo básico de pular sob obstáculos, a velocidade do jogo aumenta com o tempo para ir ficando mais difícil.
-
-
-Vídeo apresentando o jogo:
-
-
+# Vídeo apresentando o jogo:
 
 
 
 Para executar o jogo rode o arquivo pygame_projetofinal.py
 
 
-Créditos:
+# Créditos:
 
 Obstáculos: Irina Mir (irmirx)
 
