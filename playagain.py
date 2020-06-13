@@ -1,6 +1,6 @@
 import pygame
 from os import path
-from config import img_dir, font_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN, INSTRUCTION
+from config import img_dir, font_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN, INSTRUCTION
 import gamescreen
 
 def play_again(screen):
@@ -18,28 +18,28 @@ def play_again(screen):
     background_rect = background.get_rect()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 70)
-    gameover_texto = font.render('Game Over!', True, (BLACK))
-    background.blit(gameover_texto, (407, 20))
-    playagain_texto = font.render('Quer tentar de novo?', True, (BLACK))
-    background.blit(playagain_texto, (250, 100))
+    gameover_texto = font.render('Game Over!', True, (WHITE))
+    background.blit(gameover_texto, (407, 120))
+    playagain_texto = font.render('Quer tentar de novo?', True, (WHITE))
+    background.blit(playagain_texto, (250, 250))
 
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (422, 430))
+    background.blit(playbutton, (440, 450))
     playbutton = playbutton.get_rect()
-    playbutton.x = 422
-    playbutton.y = 430
+    playbutton.x = 440
+    playbutton.y = 450
 
     instru = pygame.image.load(path.join(img_dir, 'instructions.png')).convert_alpha()
-    background.blit(instru, (422, 600))
+    background.blit(instru, (440, 590))
     instru = instru.get_rect()
-    instru.x = 422
-    instru.y = 600
+    instru.x = 440
+    instru.y = 590
     
     # Mostra o highscore
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)
     highscore = gamescreen.highscore
     
-    highscore_texto = font.render('highscore: {0}'.format(int(highscore)), True, (BLACK))
+    highscore_texto = font.render('highscore: {0}'.format(int(highscore)), True, (WHITE))
     background.blit(highscore_texto, (30, 25))
     
     state = PLAYAGAIN

@@ -1,5 +1,5 @@
 """
-Programa do jogo Johnny's Run
+Programa do jogo Night Runner
 
 Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 """

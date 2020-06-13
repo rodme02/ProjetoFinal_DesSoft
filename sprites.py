@@ -1,18 +1,22 @@
 import pygame
-from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, STILL, WALKING, JUMPING, OBSTACLE_SIZE
+from os import path
+from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, STILL, WALKING, JUMPING, SPIKE_SIZE, SNAKE_SIZE
 import gamescreen
+import random
 
-# Class que representa os obstáculos do cenário
-class Tile(pygame.sprite.Sprite):
+# Class que representa o obstáculo espinho e cobra
+class Spike(pygame.sprite.Sprite):
     # Construtor da classe pai
-    def __init__(self, tile_img, x, y, speedx):
+    def __init__(self, spike_img, snake_img, x, y, speedx):
         pygame.sprite.Sprite.__init__(self)
 
         # Aumenta o tamanho do obstáculo
-        tile_img = pygame.transform.scale(tile_img, (OBSTACLE_SIZE, OBSTACLE_SIZE))
-        
+        spike_img = pygame.transform.scale(spike_img, (SPIKE_SIZE, SPIKE_SIZE))
+        snake_img = pygame.transform.scale(snake_img, (SNAKE_SIZE, SNAKE_SIZE))
+
         # Define a imagem do obstáculo
-        self.image = tile_img
+        list_blocks = [spike_img, snake_img]
+        self.image = list_blocks[random.randint(0,1)]
         # Detalhes sobre o posicionamento
         self.rect = self.image.get_rect()
 
@@ -130,6 +134,9 @@ class Player(pygame.sprite.Sprite):
     # Faz o personagem pular
     def JUMPING(self):
         if self.state == WALKING or self.state == STILL:
+            jump = pygame.mixer.Sound(path.join('audio', 'jump.wav'))
+            jump.set_volume(0.2)
+            jump.play()
             self.speedy -= JUMPING_SIZE
             self.state = JUMPING
 
@@ -209,5 +216,8 @@ class PlayerInstru(pygame.sprite.Sprite):
     # Faz o personagem pular
     def JUMPING(self):
         if self.state == STILL:
+            jump = pygame.mixer.Sound(path.join('audio', 'jump.wav'))
+            jump.set_volume(0.2)
+            jump.play()
             self.speedy -= JUMPING_SIZE
             self.state = JUMPING

@@ -9,18 +9,20 @@ Autores:
 Rodrigo Paoliello de Medeiros
 Pedro Santana Costa
 
+Esse é um jogo básico de pular sob obstáculos, a velocidade do jogo aumenta com o tempo para ir ficando mais difícil.
+
 Vídeo apresentando o jogo:
 
 
-Esse é um jogo básico de pular sob obstáculos, a velocidade do jogo aumenta com o tempo para ir ficando mais difícil.
-
-Para executar o jogo rode o arquivo pygame_projetofinal.py.
+Para executar o jogo rode o arquivo pygame_projetofinal.py
 
 
 Créditos:
 
 Obstáculos: Irina Mir (irmirx)
 
-Fundo: 
+Fundo: macrovector / Freepik
 
 Personagem: Balmer
+
+Música e logos: Rodrigo Medeiros

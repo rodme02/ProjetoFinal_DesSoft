@@ -1,5 +1,4 @@
 from os import path
-import pygame
 
 # Estabelece a pasta que contém as figuras e sons
 img_dir = path.join(path.dirname(__file__), 'img')
@@ -7,14 +6,15 @@ audio_dir = path.join(path.dirname(__file__), 'audio')
 font_dir = path.join(path.dirname(__file__), 'font')
 
 # Dados gerais do jogo
-TITULO = "Johnny's Run"
+TITULO = "Night Runner"
 WIDTH = 1180 # Largura da tela
 HEIGHT = 800 # Altura da tela
-FPS = 60 # Frames por segundo
+FPS = 90 # Frames por segundo
 RUN_IMG = 'run_img'
 JUMP_IMG = 'jump_img'
 STILL_IMG = 'still_img'
-BLOCK_IMG = 'block_img'
+SPIKE_IMG = 'spike_img'
+SNAKE_IMG = 'snake_img'
 BACKGROUND_IMG = 'background_img'
 LOGO_IMG = 'logo_img'
 LOGO_SIZE = 100
@@ -28,17 +28,19 @@ INSTRUCTION = 4
 
 # Variáveis para a posição do jogador
 GRAVITY = 2
-JUMPING_SIZE = 30
-GROUND = HEIGHT - 120
+JUMPING_SIZE = 28
+GROUND = HEIGHT - 140
 
 # Estados do jogador
 STILL = 0
 WALKING = 1
 JUMPING = 2
 
-# Define a cor preto
+# Define as cores preto e branco
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 
 # Constantes do obstáculo
 INITIAL_BLOCKS = 2
-OBSTACLE_SIZE = 80
+SPIKE_SIZE = 120
+SNAKE_SIZE = 140

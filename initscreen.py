@@ -1,6 +1,6 @@
 import pygame
 from os import path
-from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, INSTRUCTION
+from config import img_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, INSTRUCTION
 
 def init_screen(screen):
 
@@ -18,19 +18,19 @@ def init_screen(screen):
     background_rect = background.get_rect()
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     logo = pygame.image.load(path.join(img_dir, 'logo.png')).convert_alpha()
-    background.blit(logo, (WIDTH/3.5, -30))
+    background.blit(logo, (285, -170))
     
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (422, 430))
+    background.blit(playbutton, (440, 450))
     playbutton = playbutton.get_rect()
-    playbutton.x = 422
-    playbutton.y = 430
+    playbutton.x = 440
+    playbutton.y = 450
 
     instru = pygame.image.load(path.join(img_dir, 'instructions.png')).convert_alpha()
-    background.blit(instru, (422, 600))
+    background.blit(instru, (440, 590))
     instru = instru.get_rect()
-    instru.x = 422
-    instru.y = 600
+    instru.x = 440
+    instru.y = 590
 
     state = INIT
     while state == INIT:

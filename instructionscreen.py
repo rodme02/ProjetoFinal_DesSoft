@@ -1,18 +1,18 @@
 import pygame
 from os import path
 import random
-from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, GROUND, font_dir, BLOCK_IMG, BACKGROUND_IMG, INSTRUCTION, STILL
-from sprites import Tile, PlayerInstru
+from config import img_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, GROUND, font_dir, BACKGROUND_IMG, INSTRUCTION, STILL
+from sprites import PlayerInstru
 from assets import load_assets
 
 def instruction_screen(screen):
 
-    
+    '''
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
-    
+    '''
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
@@ -25,13 +25,13 @@ def instruction_screen(screen):
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (422, 150))
+    background.blit(playbutton, (440, 180))
     playbutton = playbutton.get_rect()
-    playbutton.x = 422
-    playbutton.y = 150
+    playbutton.x = 440
+    playbutton.y = 180
 
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 70)
-    instru_texto = font.render('Aperte ESPAÇO para pular', True, (BLACK))
+    instru_texto = font.render('Aperte ESPAÇO para pular', True, (WHITE))
     background.blit(instru_texto, (150, 50))
 
     # Carrega spritesheet
