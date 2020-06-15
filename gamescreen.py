@@ -52,7 +52,7 @@ def game_screen(screen):
 
     # Define a variável world_speed inicial e a define como como global
     global world_speed
-    world_speed = -12
+    world_speed = -13
 
     # Define a variável highscore como global
     global highscore
@@ -103,7 +103,7 @@ def game_screen(screen):
         if len(hits) > 0:
             state = PLAYAGAIN
             death = pygame.mixer.Sound(path.join('audio', 'death.wav'))
-            death.set_volume(0.7)
+            death.set_volume(0.4)
             death.play()
             if score > highscore:
                 highscore = score

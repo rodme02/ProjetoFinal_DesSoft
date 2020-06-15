@@ -50,7 +50,6 @@ def load_spritesheet(spritesheet, rows, columns):
             y = row * sprite_height
             # Define o retângulo que contém o sprite atual
             dest_rect = pygame.Rect(x, y, sprite_width, sprite_height)
-
             # Cria uma imagem vazia do tamanho do sprite
             image = pygame.Surface((sprite_width, sprite_height))
             # Copia o sprite atual (do spritesheet) na imagem
@@ -72,9 +71,9 @@ class Player(pygame.sprite.Sprite):
         # Define sequências de sprites de cada animação
         spritesheet = load_spritesheet(player_sheet, 4, 8)
         self.animations = {
-            STILL: [spritesheet[0], spritesheet[5]],
+            STILL: spritesheet[0:1],
             WALKING: spritesheet[25:32],
-            JUMPING: spritesheet[6:8],
+            JUMPING: [spritesheet[6], spritesheet[7], spritesheet[7]],
         }
         # Define estado atual
         self.state = STILL
@@ -135,7 +134,7 @@ class Player(pygame.sprite.Sprite):
     def JUMPING(self):
         if self.state == WALKING or self.state == STILL:
             jump = pygame.mixer.Sound(path.join('audio', 'jump.wav'))
-            jump.set_volume(0.2)
+            jump.set_volume(0.15)
             jump.play()
             self.speedy -= JUMPING_SIZE
             self.state = JUMPING
@@ -217,7 +216,7 @@ class PlayerInstru(pygame.sprite.Sprite):
     def JUMPING(self):
         if self.state == STILL:
             jump = pygame.mixer.Sound(path.join('audio', 'jump.wav'))
-            jump.set_volume(0.2)
+            jump.set_volume(0.15)
             jump.play()
             self.speedy -= JUMPING_SIZE
             self.state = JUMPING

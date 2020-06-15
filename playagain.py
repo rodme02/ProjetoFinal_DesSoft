@@ -7,7 +7,7 @@ def play_again(screen):
     
     # Música do menu
     pygame.mixer.music.load(path.join('audio', 'intro.wav'))
-    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.set_volume(0.3)
     pygame.mixer.music.play(-1)
     
     # Variável para o ajuste do FPS
