@@ -1,17 +1,12 @@
-import pygame
 from os import path
-import random
-from config import img_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, GROUND, font_dir, BACKGROUND_IMG, INSTRUCTION, STILL
+import pygame
+from config import img_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, font_dir, INSTRUCTION
 from sprites import PlayerInstru
-from assets import load_assets
 
 def instruction_screen(screen):
 
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
-
-    # Carrega assets
-    assets = load_assets(img_dir)
 
     background = pygame.image.load(path.join(img_dir, 'background.png')).convert()
     background_rect = background.get_rect()

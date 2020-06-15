@@ -1,5 +1,5 @@
-import pygame
 from os import path
+import pygame
 from config import img_dir, font_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN, INSTRUCTION
 import gamescreen
 

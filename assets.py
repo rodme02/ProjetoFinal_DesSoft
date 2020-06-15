@@ -1,5 +1,5 @@
-import pygame
 from os import path
+import pygame
 from config import SPIKE_IMG, SNAKE_IMG, BACKGROUND_IMG, LOGO_IMG
 
 # Carrega os assets

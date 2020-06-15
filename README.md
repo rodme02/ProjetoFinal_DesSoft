@@ -15,6 +15,8 @@ Pedro Santana Costa
 
 # Vídeo apresentando o jogo:
 
+https://youtu.be/phZsRbkbPMg
+
 
 # Créditos:
 

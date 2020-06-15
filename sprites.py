@@ -1,8 +1,8 @@
-import pygame
 from os import path
+import random
+import pygame
 from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, STILL, WALKING, JUMPING, SPIKE_SIZE, SNAKE_SIZE
 import gamescreen
-import random
 
 # Class que representa o obstáculo espinho e cobra
 class Spike(pygame.sprite.Sprite):
@@ -16,7 +16,7 @@ class Spike(pygame.sprite.Sprite):
 
         # Define a imagem do obstáculo
         list_blocks = [spike_img, snake_img]
-        self.image = list_blocks[random.randint(0,1)]
+        self.image = list_blocks[random.randint(0, 1)]
         # Detalhes sobre o posicionamento
         self.rect = self.image.get_rect()
 

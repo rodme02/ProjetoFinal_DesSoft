@@ -1,6 +1,6 @@
-import pygame
 from os import path
 import random
+import pygame
 from sprites import Spike, Player
 from config import WIDTH, HEIGHT, GROUND, FPS, img_dir, font_dir, SPIKE_IMG, SNAKE_IMG, BACKGROUND_IMG, BLACK, WHITE, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
@@ -10,14 +10,12 @@ world_speed = -11
 
 def game_screen(screen):
     
-    
     # Música do jogo
     pygame.mixer.music.set_endevent(pygame.USEREVENT)
     pygame.mixer.music.load(path.join('audio', 'fill.wav'))
     pygame.mixer.music.set_volume(1)
     pygame.mixer.music.play()
     
-
     # Variável para o ajuste do FPS
     clock = pygame.time.Clock()
 

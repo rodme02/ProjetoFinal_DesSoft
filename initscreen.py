@@ -1,6 +1,6 @@
-import pygame
 from os import path
-from config import img_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, INSTRUCTION
+import pygame
+from config import img_dir, BLACK, FPS, PLAYING, DONE, WIDTH, HEIGHT, INIT, INSTRUCTION
 
 def init_screen(screen):
 

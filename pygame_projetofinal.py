@@ -3,6 +3,7 @@ Programa do jogo Night Runner
 
 Autores: Rodrigo Paoilello de Medeiros e Pedro Santana Costa
 """
+
 # Importando as bibliotecas
 import pygame
 from config import TITULO, WIDTH, HEIGHT, INIT, DONE, PLAYING, PLAYAGAIN, INSTRUCTION
