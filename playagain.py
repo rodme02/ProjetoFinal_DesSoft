@@ -3,6 +3,11 @@ import pygame
 from config import img_dir, font_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, PLAYAGAIN, INSTRUCTION
 import gamescreen
 
+playbutton_x = 440
+playbutton_y = 450
+instru_x = playbutton_x
+instru_y = 590
+
 def play_again(screen):
     
     # Música do menu
@@ -24,16 +29,16 @@ def play_again(screen):
     background.blit(playagain_texto, (250, 250))
 
     playbutton = pygame.image.load(path.join(img_dir, 'playbutton.png')).convert_alpha()
-    background.blit(playbutton, (440, 450))
+    background.blit(playbutton, (playbutton_x, playbutton_y))
     playbutton = playbutton.get_rect()
-    playbutton.x = 440
-    playbutton.y = 450
+    playbutton.x = playbutton_x
+    playbutton.y = playbutton_y
 
     instru = pygame.image.load(path.join(img_dir, 'instructions.png')).convert_alpha()
-    background.blit(instru, (440, 590))
+    background.blit(instru, (instru_x, instru_y))
     instru = instru.get_rect()
-    instru.x = 440
-    instru.y = 590
+    instru.x = instru_x
+    instru.y = instru_y
     
     # Mostra o highscore
     font = pygame.font.Font(path.join(font_dir, 'fonte.TTF'), 40)

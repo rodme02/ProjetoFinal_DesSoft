@@ -7,7 +7,6 @@ from config import WIDTH, HEIGHT, GROUND, FPS, img_dir, font_dir, SPIKE_IMG, SNA
 from assets import load_assets
 
 highscore = 0
-world_speed = -11
 
 def game_screen(screen):
     
