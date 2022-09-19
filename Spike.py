@@ -20,6 +20,7 @@ class Spike(pygame.sprite.Sprite):
         # Detalhes sobre o posicionamento
         self.rect = self.image.get_rect()
 
+
         # Posiciona o obstáculo
         self.rect.x = x
         self.rect.y = y

@@ -1,6 +1,6 @@
 from os import path
 import pygame
-from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, STILL, WALKING, JUMPING, SPIKE_SIZE, SNAKE_SIZE
+from config import WIDTH, GRAVITY, JUMPING_SIZE, GROUND, STILL, WALKING, JUMPING
 from load_spritesheet import load_spritesheet
 
 # Class que representa o jogador na game screen
@@ -11,7 +11,9 @@ class Player(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        # Aumenta o tamanho do spritesheet para ficar mais fácil de ver
+        self.default = WALKING
+
+        # Aumenta o tamanho do spritesheet para ficar mais fácil de ver]
         player_sheet = pygame.transform.scale(player_sheet, (800, 700))
 
         # Define sequências de sprites de cada animação
@@ -74,7 +76,7 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom > GROUND:
             self.rect.bottom = GROUND
             self.speedy = 0
-            self.state = WALKING
+            self.state = self.default
 
     # Faz o personagem pular
     def JUMPING(self):

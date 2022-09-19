@@ -1,7 +1,8 @@
 from os import path
 import random
 import pygame
-from sprites import Spike, Player
+from Spike import Spike
+from Player import Player
 from config import WIDTH, HEIGHT, GROUND, FPS, img_dir, font_dir, SPIKE_IMG, SNAKE_IMG, BACKGROUND_IMG, BLACK, WHITE, PLAYING, DONE, PLAYAGAIN
 from assets import load_assets
 

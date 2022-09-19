@@ -17,4 +17,5 @@ def load_spritesheet(spritesheet, rows, columns):
             # Copia o sprite atual (do spritesheet) na imagem
             image.blit(spritesheet, (0, 0), dest_rect)
             sprites.append(image)
+            
     return sprites

@@ -1,7 +1,7 @@
 from os import path
 import pygame
 from config import img_dir, BLACK, WHITE, FPS, PLAYING, DONE, WIDTH, HEIGHT, font_dir, INSTRUCTION
-from sprites import PlayerInstru
+from PlayerInstru import PlayerInstru
 
 def instruction_screen(screen):
 
